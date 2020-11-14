@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class NewTransaction extends StatefulWidget {
-  final void Function(String text, double amount) addTx;
+  final void Function(String text, double amount, DateTime date) addTx;
 
   NewTransaction(this.addTx);
 
@@ -19,13 +19,16 @@ class _NewTransactionState extends State<NewTransaction> {
     final enteredTitle = _titleController.text;
     final enteredAmount = double.tryParse(_amountController.text);
 
-    if (enteredTitle.isEmpty || (enteredAmount != null && enteredAmount <= 0)) {
+    if (enteredTitle.isEmpty ||
+        (enteredAmount != null && enteredAmount <= 0) ||
+        _selectedDate == null) {
       return;
     }
 
     widget.addTx(
       enteredTitle,
       enteredAmount,
+      _selectedDate,
     );
 
     Navigator.of(this.context).pop();
