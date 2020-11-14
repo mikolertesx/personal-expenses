@@ -67,6 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
     // )
   ];
 
+  bool _showChart = false;
+
   List<Transaction> get _recentTransactions {
     final lastSevenDays = DateTime.now().subtract(Duration(days: 7));
 
@@ -129,15 +131,31 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Container(
-                height: (appHeight) * 0.3, child: Chart(_recentTransactions)),
-            Container(
-              height: (appHeight) * 0.7,
-              child: TransactionList(
-                _userTransactions,
-                _deleteTransactions,
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text('Show Chart'),
+                Switch(
+                  onChanged: (changed) {
+                    setState(() {
+                      _showChart = changed;
+                    });
+                  },
+                  value: _showChart,
+                ),
+              ],
             ),
+            _showChart
+                ? Container(
+                    height: (appHeight) * 0.7,
+                    child: Chart(_recentTransactions))
+                : Container(
+                    height: (appHeight) * 0.7,
+                    child: TransactionList(
+                      _userTransactions,
+                      _deleteTransactions,
+                    ),
+                  ),
           ],
         ),
       ),
