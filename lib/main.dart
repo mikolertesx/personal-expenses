@@ -30,7 +30,9 @@ class MyApp extends StatelessWidget {
               headline6: TextStyle(
                 fontFamily: 'OpenSans',
                 fontWeight: FontWeight.bold,
+                fontSize: 18,
               ),
+              button: TextStyle(color: Colors.white),
             ),
       ),
       home: MyHomePage(),
